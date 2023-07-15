@@ -13,11 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # build-and-analyze:
-  #   uses: ./.github/workflows/build-and-analyze.yaml
-  #   secrets:
-  #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  build-and-analyze:
+    uses: ./.github/workflows/build-and-analyze.yaml
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   postman-testing:
-    # needs: build-and-analyze
+    needs: build-and-analyze
     uses: ./.github/workflows/postman-testing.yaml  
