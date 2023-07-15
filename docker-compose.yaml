@@ -7,9 +7,6 @@ services:
     image: shipping-service
     ports:
       - "8080:8080"
-    healthcheck:
-      test: ["CMD", "wget", "http://localhost:8080/shipping/c"]
-      interval: 5s
 
   postman:
     container_name: postman-tests-container
@@ -17,12 +14,7 @@ services:
       context: ./postman
       dockerfile: Dockerfile
     image: postman-tests
-    command:
-      run shipping-service.postman_collection.json -k
-      -r cli,htmlextra
-      --reporter-htmlextra-export="reports/shipping-service-api-tests.html"
     volumes:
       - ./postman:/etc/newman
     depends_on: 
-       shipping-service-api:
-        condition: service_healthy
+      - shipping-service-api
