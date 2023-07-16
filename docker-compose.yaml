@@ -1,0 +1,20 @@
+services:
+  shipping-service-api:
+    container_name: shipping-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: shipping-service
+    ports:
+      - "8080:8080"
+
+  postman:
+    container_name: postman-tests-container
+    build: 
+      context: ./postman
+      dockerfile: Dockerfile
+    image: postman-tests
+    volumes:
+      - ./postman:/etc/newman
+    depends_on: 
+      - shipping-service-api
